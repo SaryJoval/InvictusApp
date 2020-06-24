@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">InvictusApp</string>
+    <string name="edtEmail">Email</string>
+    <string name="edtPassword">Password</string>
+    <string name="btnCreateAccount">Registrarse</string>
+    <string name="btnSignIn">Ingresar</string>
+    <string name="tvTittle">Bienvenido a Invictus App</string>
+    <string name="tvUserDetail">Nombre de usuario</string>
+    <string name="btnSignOut">Sign out</string>
+    <string name="title_activity_referencia">ReferenciaActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="hint_email">E-mail</string>
+    <string name="hint_pass">Password</string>
+    <string name="dontHaveAccount">¿No tienes cuenta?</string>
+    <string name="create_here">, Crea una aquí.</string>
+    <string name="rut_usuario">Rut</string>
+    <string name="nombre_usuario">Nombre</string>
+    <string name="mail_usuario">E-mail</string>
+    <string name="telefono_usuario">Teléfono</string>
+    <string name="Repita_pass">Repita password</string>
+    <string name="toolbar_tittle_createaccount">Crean cuenta</string>
+    <string name="hint_rut">Rut</string>
+    <string name="hint_nombre">Nombre</string>
+    <string name="hint_telefono">Telefono</string>
+    <string name="download_button">DOWNLOAD</string>
+    <string name="upload_button">UPLOAD</string>
+
+</resources>

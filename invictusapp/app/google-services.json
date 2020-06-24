@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "695489100068",
+    "firebase_url": "https://sindicato-invictus-app.firebaseio.com",
+    "project_id": "sindicato-invictus-app",
+    "storage_bucket": "sindicato-invictus-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:695489100068:android:2aa04911b063aa73e19bb1",
+        "android_client_info": {
+          "package_name": "com.example.invictusapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "695489100068-v3sb0b9dsuvg5cc90r0nde7q0vamm6ck.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.invictusapp",
+            "certificate_hash": "07c7c1fc717f15373cb6adc54c6ca4b070a03a84"
+          }
+        },
+        {
+          "client_id": "695489100068-et2llbkr5lavr9hb4geoj92l1mj407fd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAh6OdVpEpW2jHQ5EEdq9tsKinOmnkx4AE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "695489100068-et2llbkr5lavr9hb4geoj92l1mj407fd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
