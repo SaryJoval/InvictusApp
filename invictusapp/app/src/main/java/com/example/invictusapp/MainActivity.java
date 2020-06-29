@@ -56,7 +56,20 @@ public class MainActivity extends AppCompatActivity {
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                signIn(edtEmail.getText().toString(), edtPassword.getText().toString());
+                String email = edtEmail.getText().toString();
+                String password = edtPassword.getText().toString();
+                if(email.isEmpty())
+                {
+                    edtEmail.setError("Favor ingrese mail");
+                }
+                else if(password.isEmpty())
+                {
+                    edtPassword.setError("Ingrese contraseña");
+                }
+                else
+                {
+                    signIn(email,password);
+                }
             }
         });
     }
@@ -87,9 +100,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
-                    Toast.makeText(MainActivity.this, "Create Account Success", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Se ha creado una cuenta", Toast.LENGTH_SHORT).show();
                 }else {
-                    Toast.makeText(MainActivity.this, "Create Account Unsuccess", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "No se ha podido crear cuenta", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -99,12 +112,12 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-                            Toast.makeText(MainActivity.this, "Authentication Success", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "Autentificacion Exitosa", Toast.LENGTH_SHORT).show();
                             Intent i = new Intent(MainActivity.this, WelcomeActivity.class);
                             startActivity(i);
                             finish();
                         }else {
-                            Toast.makeText(MainActivity.this, "Authentication Unsuccess", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "No existe cuenta, Registrarse", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
