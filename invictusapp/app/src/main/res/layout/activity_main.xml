@@ -23,10 +23,10 @@
 
             <ImageView
                 android:id="@+id/logo"
-                android:layout_width="277dp"
-                android:layout_height="213dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:background="@drawable/logo" />
+                android:background="@drawable/logo1" />
 
         </RelativeLayout>
         
