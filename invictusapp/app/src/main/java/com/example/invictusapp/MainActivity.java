@@ -23,7 +23,7 @@ import java.util.logging.LoggingMXBean;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "MainActivuty";
+    private static final String TAG = "MainActivity";
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
 
@@ -94,19 +94,6 @@ public class MainActivity extends AppCompatActivity {
             }
         };
     }
-
-    private void createAccount(String email, String password){
-        firebaseAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>(){
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
-                    Toast.makeText(MainActivity.this, "Se ha creado una cuenta", Toast.LENGTH_SHORT).show();
-                }else {
-                    Toast.makeText(MainActivity.this, "No se ha podido crear cuenta", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
     private void signIn(String email, String password){
         firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -117,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                             startActivity(i);
                             finish();
                         }else {
-                            Toast.makeText(MainActivity.this, "No existe cuenta, Registrarse", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "No existe cuenta, favor Registrarse", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
