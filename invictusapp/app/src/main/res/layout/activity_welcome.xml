@@ -34,7 +34,7 @@
         app:columnCount="2"
         app:rowCount="3"
         >
-        <androidx.cardview.widget.CardView
+         <androidx.cardview.widget.CardView
             android:id="@+id/cardPerfil"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
             android:layout_marginBottom="10dp"
             app:cardCornerRadius="8dp"
             app:cardElevation="6dp"
-            app:layout_columnWeight="1dp"
+            app:layout_columnWeight="1"
             android:foreground="?selectableItemBackground">
 
             <LinearLayout
