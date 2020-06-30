@@ -24,8 +24,8 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
-        tvUserDetail = (TextView) findViewById(R.id.tvUserDetail);
-        btnSignOut = (Button) findViewById(R.id.btnSignOut);
+        //tvUserDetail = (TextView) findViewById(R.id.tvUserDetail);
+        //btnSignOut = (Button) findViewById(R.id.btnSignOut);
         inicialize();
 
         btnSignOut.setOnClickListener(new View.OnClickListener() {
