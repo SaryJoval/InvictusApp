@@ -9,7 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.ResetPassword"></activity>
+        <activity android:name=".view.GiftcardActivity" />
+        <activity android:name=".view.CoursesActivity" />
+        <activity android:name=".RefundsActivty" />
+        <activity android:name=".view.RequestsActivity" />
+        <activity android:name=".view.NewsActivity" />
+        <activity android:name=".view.ProfileActivity" />
+        <activity android:name=".view.ResetPassword" />
         <activity android:name=".view.Storage" />
         <activity
             android:name=".view.ReferenciaActivity"

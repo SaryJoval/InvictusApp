@@ -31,5 +31,11 @@
     <string name="hint_telefono">Telefono</string>
     <string name="download_button">DOWNLOAD</string>
     <string name="upload_button">UPLOAD</string>
+    <string name="MiPerfil">Mi perfil</string>
+    <string name="Noticias">Noticias</string>
+    <string name="MisSolicitudes">Mis solicitudes</string>
+    <string name="Reembolsos">Reembolsos</string>
+    <string name="Cursos">Cursos</string>
+    <string name="Giftcards">Giftcards</string>
 
 </resources>
