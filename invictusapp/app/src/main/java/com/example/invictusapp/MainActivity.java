@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.invictusapp.view.CreateAccountActivity;
 import com.example.invictusapp.view.NewsActivity;
+import com.example.invictusapp.view.ResetPassword;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -21,6 +23,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.logging.LoggingMXBean;
+import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -61,9 +64,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String email = edtEmail.getText().toString();
                 String password = edtPassword.getText().toString();
-                if(email.isEmpty())
+                if(!validarEmail(email) || email.isEmpty())
                 {
-                    edtEmail.setError("Favor ingrese mail");
+                    edtEmail.setError("Favor ingrese mail valido");
                 }
                 else if(password.isEmpty())
                 {
@@ -79,6 +82,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void goRegister(View view){
         Intent intent = new Intent(MainActivity.this, CreateAccountActivity.class);
+        startActivity(intent);
+    }
+    public void goResetPassword(View view){
+        Intent intent = new Intent(MainActivity.this, ResetPassword.class);
         startActivity(intent);
     }
 
@@ -112,6 +119,10 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+    }
+    private boolean validarEmail(String email) {
+        Pattern patterns = Patterns.EMAIL_ADDRESS;
+        return patterns.matcher(email).matches();
     }
 
     @Override

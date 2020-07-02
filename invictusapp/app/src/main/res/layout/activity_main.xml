@@ -80,28 +80,52 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    >
+                    android:layout_height="44dp"
+                    android:gravity="center">
+
                     <TextView
                         android:id="@+id/dontHaveAccount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/dontHaveAccount"
                         android:textColor="@color/secondary_text"
-                        android:textStyle="bold"
                         android:textSize="@dimen/textsize_donthaveaccount"
-                        />
+                        android:textStyle="bold" />
+
                     <TextView
                         android:id="@+id/CreateHere"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/create_here"
-                        android:textColor="@color/secondary_text"
-                        android:textStyle="bold"
                         android:layout_toRightOf="@+id/dontHaveAccount"
                         android:onClick="goRegister"
-                        />
+                        android:text="@string/create_here"
+                        android:textColor="@color/secondary_text"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="43dp"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/olvidastetucontraseña"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/olvidastecontraseña"
+                        android:textColor="@color/secondary_text"
+                        android:textSize="@dimen/textsize_donthaveaccount"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/recuperalaaqui"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/olvidastetucontraseña"
+                        android:onClick="goResetPassword"
+                        android:text="@string/recuperalaaqui"
+                        android:textColor="@color/secondary_text"
+                        android:textStyle="bold" />
                 </RelativeLayout>
 
             </LinearLayout>

@@ -20,6 +20,9 @@
     <string name="hint_pass">Password</string>
     <string name="dontHaveAccount">¿No tienes cuenta?</string>
     <string name="create_here">, Crea una aquí.</string>
+    <string name="olvidastecontraseña">¿Olvidaste tu contraseña?, </string>
+    <string name="recuperalaaqui">Recuperala aqui.</string>
+    <string name="ingresemail">Ingrese e-mail a reestablecer</string>
     <string name="rut_usuario">Rut</string>
     <string name="nombre_usuario">Nombre</string>
     <string name="mail_usuario">E-mail</string>
