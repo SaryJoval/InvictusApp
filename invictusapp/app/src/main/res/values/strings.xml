@@ -40,5 +40,9 @@
     <string name="Reembolsos">Reembolsos</string>
     <string name="Cursos">Cursos</string>
     <string name="Giftcards">Giftcards</string>
+    <string name="hint_asunto">Asunto</string>
+    <string name="hint_descripcion">Descripción</string>
+    <string name="upload_reembolso">Enviar solicitud</string>
+    <string name="labelReembolso">Seleccione imagen (Boleta, orden médica, etc):</string>
 
 </resources>
