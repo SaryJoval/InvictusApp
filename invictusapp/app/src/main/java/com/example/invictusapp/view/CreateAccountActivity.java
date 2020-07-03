@@ -18,15 +18,20 @@ import androidx.appcompat.widget.Toolbar;
 import com.example.invictusapp.MainActivity;
 import com.example.invictusapp.R;
 import com.example.invictusapp.WelcomeActivity;
+import com.example.invictusapp.modelo.Usuario;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.regex.Pattern;
 
 public class CreateAccountActivity extends AppCompatActivity {
 
+    private static final String USUARIOS_NODE = "Usuarios";
+    private DatabaseReference databaseReference;
     private static final String TAG = "MainActivity";
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
@@ -44,8 +49,12 @@ public class CreateAccountActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
-        //showToolbar(getResources().getString(R.string.toolbar_tittle_createaccount),false);
 
+        //Base de datos
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+
+        //Autorizacion
         firebaseAuth = FirebaseAuth.getInstance();
         progressDialog = new ProgressDialog(this);
 
@@ -182,12 +191,21 @@ public class CreateAccountActivity extends AppCompatActivity {
                 }
             }
         });
+        createUser();
     }
 
-    public void showToolbar(String tittle, boolean upButton){
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(tittle);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(upButton);
+    /*this.id = id;
+        this.rut = rut;
+        this.nombre = nombre;
+        this.password = password;
+        this.telefono = telefono;
+        this.estado = estado;
+        this.banco = banco;
+        this.cuenta = cuenta;
+        this.perfil_id = perfil_id;*/
+    //Creación usuario
+    public void createUser(){
+        Usuario usuario = new Usuario(databaseReference.push().getKey(), "Fabian", "1978943-8","asdf", "123456789", true, "Banco de chile", "12324432-90");
+        databaseReference.child(USUARIOS_NODE).child(usuario.getId()).setValue(usuario);
     }
 }
