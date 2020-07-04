@@ -72,7 +72,7 @@ public class CreateAccountActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 String rut = edtRutRef.getText().toString();
-                String nombre = edtNombreRef.getText().toString();
+                String nombre = edtNombreRef.getText().toString().trim();
                 String email = edtMailRef.getText().toString().trim();
                 if(edtTelefonoRef.getText().toString().length() == 0){
                     edtTelefonoRef.setText("0");
@@ -80,11 +80,11 @@ public class CreateAccountActivity extends AppCompatActivity {
                 int telefono = Integer.parseInt(edtTelefonoRef.getText().toString());
                 int longitud = String.valueOf(telefono).length();
                 String pass = edtPasswordRef.getText().toString().trim();
-                String pass2 = edtPassword2Ref.getText().toString().trim();
+                String pass2 = edtPassword2Ref.getText().toString();
                 int contador= 0;
 
 
-                if(!validarRut(rut) || rut.isEmpty()){
+                if(!validarRut(rut)){
                     edtRutRef.setError("El rut no es valido");
                 }
                 else {
@@ -115,6 +115,14 @@ public class CreateAccountActivity extends AppCompatActivity {
                     //Asignar variable a parametro en tabla
                     contador=contador+1;
                 }
+                if(!validarPass(pass))
+                {
+                    Toast.makeText(CreateAccountActivity.this,"Error en la contraseña" , Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    contador=contador+1;
+                }
                 if(pass.isEmpty())
                 {
                     edtPasswordRef.setError("Ingrese contraseña");
@@ -129,14 +137,14 @@ public class CreateAccountActivity extends AppCompatActivity {
                 }
                 if(pass.equals(pass2))
                 {
-                    Toast.makeText(CreateAccountActivity.this,"las contraseñas coinciden" , Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(CreateAccountActivity.this,"las contraseñas coinciden" , Toast.LENGTH_SHORT).show();
                     contador=contador+1;
                 }
                 else
                 {
                     Toast.makeText(CreateAccountActivity.this,"las contraseñas no coinciden" , Toast.LENGTH_SHORT).show();
                 }
-                if(contador==6)
+                if(contador==7)
                 {
                     progressDialog.setMessage("Realizando registro en linea...");
                     progressDialog.show();
@@ -146,7 +154,6 @@ public class CreateAccountActivity extends AppCompatActivity {
                     startActivity(i);
                     finish();
                 }
-
             }
         });
     }
@@ -178,6 +185,41 @@ public class CreateAccountActivity extends AppCompatActivity {
     private boolean validarEmail(String email) {
         Pattern patterns = Patterns.EMAIL_ADDRESS;
         return patterns.matcher(email).matches();
+    }
+    private boolean validarPass(String Password)
+    {
+        boolean validacion = true;
+
+        if (!Password.matches(".*[!@#$%^&*+=?-].*")){
+            edtPasswordRef.setError("Ingrese almenos un caracter especial");
+            validacion=false;
+        }
+
+        if (!Password.matches(".*\\d.*")){
+            edtPasswordRef.setError("Ingrese almenos un numero");
+            validacion=false;
+        }
+
+        if (!Password.matches(".*[a-z].*")){
+            edtPasswordRef.setError("Ingrese almenos una minuscula");
+            validacion=false;
+        }
+
+        if (!Password.matches(".*[A-Z].*")){
+            edtPasswordRef.setError("Ingrese almenos una mayuscula");
+            validacion=false;
+        }
+
+        if (!Password.matches(".{8,15}")){
+            edtPasswordRef.setError("Ingrese contraseña de 8 a 15 caracteres");
+            validacion=false;
+        }
+
+        if (Password.matches(".*\\s.*")){
+            edtPasswordRef.setError("No ingrese espacios");
+            validacion=false;
+        }
+        return validacion;
     }
 
     private void createAccount(String email, String password){

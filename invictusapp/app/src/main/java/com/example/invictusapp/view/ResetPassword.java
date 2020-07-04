@@ -5,11 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.invictusapp.MainActivity;
 import com.example.invictusapp.R;
+import com.example.invictusapp.WelcomeActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -64,6 +66,8 @@ public class ResetPassword extends AppCompatActivity {
                             if(task.isSuccessful())
                             {
                                 Toast.makeText(ResetPassword.this, "Se ha enviado un correo para reestablecer contraseña", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(ResetPassword.this, MainActivity.class);
+                                startActivity(intent);
                             }
                             else
                             {

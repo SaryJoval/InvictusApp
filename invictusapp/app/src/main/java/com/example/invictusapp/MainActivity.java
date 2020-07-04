@@ -70,12 +70,13 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else if(password.isEmpty())
                 {
-                    edtPassword.setError("Ingrese contraseña");
+                    edtPassword.setError("Favor ingrese contraseña");
                 }
                 else
                 {
                     signIn(email,password);
                 }
+
             }
         });
     }
@@ -114,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                             startActivity(i);
                             finish();
                         }else {
-                            Toast.makeText(MainActivity.this, "No existe cuenta, favor Registrarse", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "No es posible iniciar sesion, favor validar sus datos", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -124,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
         Pattern patterns = Patterns.EMAIL_ADDRESS;
         return patterns.matcher(email).matches();
     }
+
 
     @Override
     protected void onStart() {
