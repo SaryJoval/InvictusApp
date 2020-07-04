@@ -21,21 +21,12 @@ import java.util.List;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    private static final String USUARIO_NODE = "Usuario";
-    private DatabaseReference databaseReference;
-    private ListView listProfile;
-    private ArrayAdapter arrayAdapter;
-    private List<String> datos;
-
-    private FirebaseAuth firebaseAuth;
-    private FirebaseAuth.AuthStateListener authStateListener;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        listProfile = (ListView) findViewById(R.id.ListProfile);
+        /*listProfile = (ListView) findViewById(R.id.ListProfile);
         datos = new ArrayList<>();
         arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1,datos);
         listProfile.setAdapter(arrayAdapter);
@@ -63,30 +54,4 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        firebaseAuth.addAuthStateListener(authStateListener);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        firebaseAuth.addAuthStateListener(authStateListener);
-    }
-
-    public void inicialize() {
-        firebaseAuth = FirebaseAuth.getInstance();
-        authStateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-                if (firebaseUser != null) {
-                    //tvUserDetail.setText("Hola " + firebaseUser.getEmail());
-                } else {
-                    //Log.w(TAG, "onAuthStateChanged - signed_out ");
-                }
-            }
-        };
-    }
 }

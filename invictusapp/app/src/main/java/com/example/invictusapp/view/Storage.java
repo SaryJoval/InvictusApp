@@ -208,7 +208,7 @@ public class Storage extends AppCompatActivity {
         String asunto = edtAsunto.getText().toString().trim();
         String descripcion = edtDescripcion.getText().toString().trim();
         //nombreuser = databaseReference.child(USUARIO_NODE).orderByChild("mail").equalTo(user).addChildEventListener(new ChildEventListener()
-        nombreuser ="";
+        nombreuser ="-MBNY_IQmH4Ltogxoh5B";
         Solicitud solicitud = new Solicitud(databaseReference.push().getKey(),asunto, descripcion, downloadUri, nombreuser, "1", "1"  );
         databaseReference.child(SOLICITUD_NODE).child(solicitud.getId()).setValue(solicitud);
     }
