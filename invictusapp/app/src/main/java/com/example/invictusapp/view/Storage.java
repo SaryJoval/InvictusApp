@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.example.invictusapp.MainActivity;
 import com.example.invictusapp.R;
+import com.example.invictusapp.WelcomeActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -75,6 +76,8 @@ public class Storage extends AppCompatActivity {
                 String asunto = edtAsunto.getText().toString().trim();
                 String descripcion = edtDescripcion.getText().toString().trim();
 
+                int count =0;
+
                 if (asunto.isEmpty()) {
                     edtAsunto.setError("Favor ingresar asunto");
                 }
@@ -89,7 +92,7 @@ public class Storage extends AppCompatActivity {
                     progressDialog.setMessage("Enviando solicitud de reembolso");
                     progressDialog.setCancelable(false);
                     progressDialog.show();
-                    documentoRef = storageReference.child("documento.png");
+                    //documentoRef = storageReference.child("documento.png");
                     imvImage.setDrawingCacheEnabled(true);
                     imvImage.buildDrawingCache();
 
@@ -117,7 +120,7 @@ public class Storage extends AppCompatActivity {
                             edtAsunto.setText("");
                             edtDescripcion.setText("");
                             
-                            Intent i = new Intent(Storage.this, MainActivity.class);
+                            Intent i = new Intent(Storage.this, WelcomeActivity.class);
                             startActivity(i);
                             finish();
                         }
@@ -135,7 +138,7 @@ public class Storage extends AppCompatActivity {
             Uri imageUri = data.getData();
             if(imageUri != null){
                 imvImage.setImageURI(imageUri);
-                documentoRef = storageReference.child("Documentos").child(imageUri.getLastPathSegment());
+                documentoRef = storageReference.child(imageUri.getLastPathSegment());
                 /*StorageReference filepath = storageReference.child("ReembolsoDocumentos").child(imageUri.getLastPathSegment());
                 filepath.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
