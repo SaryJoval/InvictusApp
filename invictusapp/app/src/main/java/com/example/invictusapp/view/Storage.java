@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -40,14 +41,17 @@ public class Storage extends AppCompatActivity {
     private ProgressDialog progressDialog;
     private StorageReference documentoRef;
     private String downloadUri;
+    private EditText edtAsunto;
+    private  EditText edtDescripcion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_storage);
-
         storageReference = FirebaseStorage.getInstance().getReference();
         //btnDownload = (Button) findViewById(R.id.btnDownload);
+        edtAsunto = (EditText) findViewById(R.id.edtAsunto);
+        edtDescripcion = (EditText) findViewById(R.id.edtDescripcion);
         btnUpload = (Button) findViewById(R.id.btnUpload);
         imvImage = (ImageView) findViewById(R.id.imvImage);
         progressDialog = new ProgressDialog(this);
@@ -68,36 +72,57 @@ public class Storage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                progressDialog.setTitle("Procesando...");
-                progressDialog.setMessage("Enviando solicitud de reembolso");
-                progressDialog.setCancelable(false);
-                progressDialog.show();
-                documentoRef = storageReference.child("documento.png");
-                imvImage.setDrawingCacheEnabled(true);
-                imvImage.buildDrawingCache();
+                String asunto = edtAsunto.getText().toString().trim();
+                String descripcion = edtDescripcion.getText().toString().trim();
 
-                Bitmap bitmap = imvImage.getDrawingCache();
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.PNG,100, baos);
+                if (asunto.isEmpty()) {
+                    edtAsunto.setError("Favor ingresar asunto");
+                }
+                if (descripcion.isEmpty()) {
+                    edtDescripcion.setError("Favor ingresar descripcion del asunto");
+                }
+                //if (imvImage.getDrawable() == null) {
+                  // Toast.makeText(Storage.this, "Favor ingresar imagen", Toast.LENGTH_SHORT).show();
+                //}
+                //else {
+                    progressDialog.setTitle("Procesando...");
+                    progressDialog.setMessage("Enviando solicitud de reembolso");
+                    progressDialog.setCancelable(false);
+                    progressDialog.show();
+                    documentoRef = storageReference.child("documento.png");
+                    imvImage.setDrawingCacheEnabled(true);
+                    imvImage.buildDrawingCache();
 
-                byte[] documentoByte = baos.toByteArray();
+                    Bitmap bitmap = imvImage.getDrawingCache();
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
 
-                UploadTask uploadTask = documentoRef.putBytes(documentoByte);
-                uploadTask.addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.e(TAG, "Ocurrió un error en la subida del archivo");
-                        e.printStackTrace();
-                    }
-                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        progressDialog.dismiss();
-                        Toast.makeText(Storage.this,"Solicitud enviada exitosamente", Toast.LENGTH_LONG).show();
-                        downloadUri = taskSnapshot.getUploadSessionUri().getPath();
-                        Log.w(TAG, "image URL: " + downloadUri );
-                    }
-                });
+                    byte[] documentoByte = baos.toByteArray();
+
+                    UploadTask uploadTask = documentoRef.putBytes(documentoByte);
+                    uploadTask.addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.e(TAG, "Ocurrió un error en la subida del archivo");
+                            e.printStackTrace();
+                        }
+                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            progressDialog.dismiss();
+                            Toast.makeText(Storage.this, "Solicitud enviada exitosamente", Toast.LENGTH_LONG).show();
+                            downloadUri = taskSnapshot.getUploadSessionUri().getPath();
+                            Log.w(TAG, "image URL: " + downloadUri);
+
+                            edtAsunto.setText("");
+                            edtDescripcion.setText("");
+                            
+                            Intent i = new Intent(Storage.this, MainActivity.class);
+                            startActivity(i);
+                            finish();
+                        }
+                    });
+                //}
             }
         });
     }

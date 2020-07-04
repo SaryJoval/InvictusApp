@@ -2,6 +2,7 @@ package com.example.invictusapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +15,7 @@ import com.example.invictusapp.view.GiftcardActivity;
 import com.example.invictusapp.view.NewsActivity;
 import com.example.invictusapp.view.ProfileActivity;
 import com.example.invictusapp.view.RequestsActivity;
+import com.example.invictusapp.view.ResetPassword;
 import com.example.invictusapp.view.Storage;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -25,6 +27,7 @@ public class WelcomeActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
     private TextView btnSignOut;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,17 +36,25 @@ public class WelcomeActivity extends AppCompatActivity {
 
         tvUserDetail = (TextView) findViewById(R.id.tvUserDetail);
         btnSignOut = (TextView) findViewById(R.id.btnSignOut);
+        progressDialog = new ProgressDialog(this);
         inicialize();
 
         btnSignOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 signOut();
+                progressDialog.setMessage("Cerrando sesion, Espere...");
+                progressDialog.setCanceledOnTouchOutside(false);
+                progressDialog.show();
+                Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }
 
-    private void signOut() {
+    private void signOut()
+    {
         firebaseAuth.signOut();
     }
 
