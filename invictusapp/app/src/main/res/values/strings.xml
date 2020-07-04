@@ -36,6 +36,7 @@
     <string name="upload_button">UPLOAD</string>
     <string name="MiPerfil">Mi perfil</string>
     <string name="Noticias">Noticias</string>
+    <string name="btnVolver">Volver al menu</string>
     <string name="MisSolicitudes">Mis solicitudes</string>
     <string name="Reembolsos">Reembolsos</string>
     <string name="Cursos">Cursos</string>
