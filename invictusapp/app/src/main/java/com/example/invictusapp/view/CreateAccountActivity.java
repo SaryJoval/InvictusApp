@@ -141,6 +141,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                     progressDialog.setMessage("Realizando registro en linea...");
                     progressDialog.show();
                     createAccount(email,pass);
+                    createUser();
                     Intent i = new Intent(CreateAccountActivity.this, MainActivity.class);
                     startActivity(i);
                     finish();
@@ -191,9 +192,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                 }
             }
         });
-        createUser();
     }
-
     /*this.id = id;
         this.rut = rut;
         this.nombre = nombre;
@@ -205,7 +204,14 @@ public class CreateAccountActivity extends AppCompatActivity {
         this.perfil_id = perfil_id;*/
     //Creación usuario
     public void createUser(){
-        Usuario usuario = new Usuario(databaseReference.push().getKey(), "Fabian", "1978943-8","asdf", "123456789", true, "Banco de chile", "12324432-90");
+        String rut = edtRutRef.getText().toString();
+        String nombre = edtNombreRef.getText().toString();
+        String email = edtMailRef.getText().toString().trim();
+        int telefono = Integer.parseInt(edtTelefonoRef.getText().toString());
+        int longitud = String.valueOf(telefono).length();
+        String pass = edtPasswordRef.getText().toString().trim();
+
+        Usuario usuario = new Usuario(databaseReference.push().getKey(), rut, nombre, telefono, true, "","", email);
         databaseReference.child(USUARIOS_NODE).child(usuario.getId()).setValue(usuario);
     }
 }

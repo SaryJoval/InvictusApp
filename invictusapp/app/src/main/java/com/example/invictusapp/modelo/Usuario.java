@@ -8,25 +8,24 @@ public class Usuario {
     private String rut;
     private String nombre;
     private String password;
-    private String telefono;
+    private int telefono;
     private Boolean estado;
     private String banco;
     private String cuenta;
-    //private int perfil_id;
+    private String mail;
 
     public Usuario() {
     }
 
-    public Usuario(String id, String rut, String nombre, String password, String telefono, Boolean estado, String banco, String cuenta) {
+    public Usuario(String id, String rut, String nombre, int telefono, Boolean estado, String banco, String cuenta, String mail) {
         this.id = id;
         this.rut = rut;
         this.nombre = nombre;
-        this.password = password;
         this.telefono = telefono;
         this.estado = estado;
         this.banco = banco;
         this.cuenta = cuenta;
-        //this.perfil_id = perfil_id;
+        this.mail = mail;
     }
 
     public String getId() {
@@ -61,11 +60,11 @@ public class Usuario {
         this.password = password;
     }
 
-    public String getTelefono() {
+    public int getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(String telefono) {
+    public void setTelefono(int telefono) {
         this.telefono = telefono;
     }
 
@@ -101,5 +100,11 @@ public class Usuario {
         this.perfil_id = perfil_id;
     }*/
 
+    public String getMail() {
+        return mail;
+    }
 
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
 }
