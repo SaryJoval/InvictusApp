@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.example.invictusapp.MainActivity;
 import com.example.invictusapp.R;
+import com.example.invictusapp.WelcomeActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -56,7 +57,6 @@ public class Storage extends AppCompatActivity {
         imvImage = (ImageView) findViewById(R.id.imvImage);
         progressDialog = new ProgressDialog(this);
 
-
         imvImage.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -77,14 +77,13 @@ public class Storage extends AppCompatActivity {
 
                 if (asunto.isEmpty()) {
                     edtAsunto.setError("Favor ingresar asunto");
-                }
-                if (descripcion.isEmpty()) {
+                } else if (descripcion.isEmpty()) {
                     edtDescripcion.setError("Favor ingresar descripcion del asunto");
-                }
-                //if (imvImage.getDrawable() == null) {
-                  // Toast.makeText(Storage.this, "Favor ingresar imagen", Toast.LENGTH_SHORT).show();
-                //}
-                //else {
+                } else {
+                    //if (imvImage.getDrawable() == null) {
+                    // Toast.makeText(Storage.this, "Favor ingresar imagen", Toast.LENGTH_SHORT).show();
+                    //}
+                    //else {
                     progressDialog.setTitle("Procesando...");
                     progressDialog.setMessage("Enviando solicitud de reembolso");
                     progressDialog.setCancelable(false);
@@ -116,13 +115,14 @@ public class Storage extends AppCompatActivity {
 
                             edtAsunto.setText("");
                             edtDescripcion.setText("");
-                            
-                            Intent i = new Intent(Storage.this, MainActivity.class);
+
+                            Intent i = new Intent(Storage.this, WelcomeActivity.class);
                             startActivity(i);
                             finish();
                         }
                     });
-                //}
+                    //}
+                }
             }
         });
     }

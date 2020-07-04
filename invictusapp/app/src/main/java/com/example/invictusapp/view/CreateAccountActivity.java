@@ -149,9 +149,6 @@ public class CreateAccountActivity extends AppCompatActivity {
                     progressDialog.setMessage("Realizando registro en linea...");
                     progressDialog.show();
                     createAccount(email,pass);
-                    Intent i = new Intent(CreateAccountActivity.this, MainActivity.class);
-                    startActivity(i);
-                    finish();
                 }
             }
         });
@@ -227,8 +224,13 @@ public class CreateAccountActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     Toast.makeText(CreateAccountActivity.this, "Se ha creado una cuenta", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(CreateAccountActivity.this, MainActivity.class);
+                    startActivity(i);
+                    finish();
                 }else {
                     Toast.makeText(CreateAccountActivity.this, "No se ha podido crear cuenta", Toast.LENGTH_SHORT).show();
+                    edtMailRef.setError("Ingrese un email no registrado");
+                    edtMailRef.setText("");
                     progressDialog.dismiss();
                 }
             }
