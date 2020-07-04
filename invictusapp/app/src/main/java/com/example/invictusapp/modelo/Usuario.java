@@ -1,7 +1,5 @@
 package com.example.invictusapp.modelo;
 
-import android.widget.ScrollView;
-
 public class Usuario {
 
     private String id;
@@ -91,14 +89,6 @@ public class Usuario {
     public void setCuenta(String cuenta) {
         this.cuenta = cuenta;
     }
-
-    /*public int getPerfil_id() {
-        return perfil_id;
-    }
-
-    public void setPerfil_id(int perfil_id) {
-        this.perfil_id = perfil_id;
-    }*/
 
     public String getMail() {
         return mail;

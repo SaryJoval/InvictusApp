@@ -114,4 +114,8 @@ public class WelcomeActivity extends AppCompatActivity {
         Intent intent = new Intent(WelcomeActivity.this, GiftcardActivity.class);
         startActivity(intent);
     }
+
+    public void traerUser(){
+
+    }
 }

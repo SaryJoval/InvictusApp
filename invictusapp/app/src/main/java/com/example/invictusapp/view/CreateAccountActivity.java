@@ -1,23 +1,16 @@
 package com.example.invictusapp.view;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 import android.app.ProgressDialog;
-
-import androidx.appcompat.widget.Toolbar;
-
 import com.example.invictusapp.MainActivity;
 import com.example.invictusapp.R;
-import com.example.invictusapp.WelcomeActivity;
 import com.example.invictusapp.modelo.Usuario;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -25,12 +18,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
 import java.util.regex.Pattern;
 
 public class CreateAccountActivity extends AppCompatActivity {
 
-    private static final String USUARIOS_NODE = "Usuarios";
+    private static final String USUARIOS_NODE = "Usuario";
     private DatabaseReference databaseReference;
     private static final String TAG = "MainActivity";
     private FirebaseAuth firebaseAuth;
@@ -235,15 +227,7 @@ public class CreateAccountActivity extends AppCompatActivity {
             }
         });
     }
-    /*this.id = id;
-        this.rut = rut;
-        this.nombre = nombre;
-        this.password = password;
-        this.telefono = telefono;
-        this.estado = estado;
-        this.banco = banco;
-        this.cuenta = cuenta;
-        this.perfil_id = perfil_id;*/
+
     //Creación usuario
     public void createUser(){
         String rut = edtRutRef.getText().toString();

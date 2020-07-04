@@ -21,8 +21,21 @@ import android.widget.Toast;
 import com.example.invictusapp.MainActivity;
 import com.example.invictusapp.R;
 import com.example.invictusapp.WelcomeActivity;
+import com.example.invictusapp.modelo.Solicitud;
+import com.example.invictusapp.modelo.Usuario;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -35,6 +48,10 @@ public class Storage extends AppCompatActivity {
 
     private static final int CHOOSER_IMAGES = 1;
     private static final String TAG = "STORAGE";
+    private static final String SOLICITUD_NODE = "Solicitud";
+    private static final String USUARIO_NODE = "Usuario";
+    private DatabaseReference databaseReference;
+    private DatabaseReference dbUser;
     //private Button btnDownload;
     private Button btnUpload;
     private ImageView imvImage;
@@ -43,7 +60,14 @@ public class Storage extends AppCompatActivity {
     private StorageReference documentoRef;
     private String downloadUri;
     private EditText edtAsunto;
-    private  EditText edtDescripcion;
+    private EditText edtDescripcion;
+    private String user;
+    private String nombreuser;
+
+
+    //Sesion usuario
+    private FirebaseAuth firebaseAuth;
+    private FirebaseAuth.AuthStateListener authStateListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +81,12 @@ public class Storage extends AppCompatActivity {
         imvImage = (ImageView) findViewById(R.id.imvImage);
         progressDialog = new ProgressDialog(this);
 
+        //Base de datos
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+
+        //Sesion
+        inicialize();
 
         imvImage.setOnClickListener(new View.OnClickListener() {
 
@@ -102,7 +132,7 @@ public class Storage extends AppCompatActivity {
 
                     byte[] documentoByte = baos.toByteArray();
 
-                    UploadTask uploadTask = documentoRef.putBytes(documentoByte);
+                    final UploadTask uploadTask = documentoRef.putBytes(documentoByte);
                     uploadTask.addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
@@ -115,19 +145,49 @@ public class Storage extends AppCompatActivity {
                             progressDialog.dismiss();
                             Toast.makeText(Storage.this, "Solicitud enviada exitosamente", Toast.LENGTH_LONG).show();
                             downloadUri = taskSnapshot.getUploadSessionUri().getPath();
+                            //downloadUri = documentoRef.getDownloadUrl().toString();
                             Log.w(TAG, "image URL: " + downloadUri);
-
+                            createRequest();
                             edtAsunto.setText("");
                             edtDescripcion.setText("");
                             
                             Intent i = new Intent(Storage.this, WelcomeActivity.class);
                             startActivity(i);
                             finish();
+
+
                         }
                     });
                 //}
             }
         });
+    }
+
+    public void inicialize() {
+        firebaseAuth = FirebaseAuth.getInstance();
+        authStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                if (firebaseUser != null) {
+                    user = firebaseUser.getEmail();
+                } else {
+                    Log.w(TAG, "onAuthStateChanged - signed_out ");
+                }
+            }
+        };
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        firebaseAuth.addAuthStateListener(authStateListener);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        firebaseAuth.addAuthStateListener(authStateListener);
     }
 
     @Override
@@ -139,20 +199,22 @@ public class Storage extends AppCompatActivity {
             if(imageUri != null){
                 imvImage.setImageURI(imageUri);
                 documentoRef = storageReference.child(imageUri.getLastPathSegment());
-                /*StorageReference filepath = storageReference.child("ReembolsoDocumentos").child(imageUri.getLastPathSegment());
-                filepath.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        Toast.makeText(Storage.this, "Archivo subido exitosamente", Toast.LENGTH_SHORT).show();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.e(TAG, "Ocurrió un error en la subida del archivo");
-                        e.printStackTrace();
-                    }
-                });*/
+                //downloadUri= documentoRef.getDownloadUrl().toString();
             }
         }
     }
+    public void createRequest(){
+
+        String asunto = edtAsunto.getText().toString().trim();
+        String descripcion = edtDescripcion.getText().toString().trim();
+        //nombreuser = databaseReference.child(USUARIO_NODE).orderByChild("mail").equalTo(user).addChildEventListener(new ChildEventListener()
+        nombreuser ="";
+        Solicitud solicitud = new Solicitud(databaseReference.push().getKey(),asunto, descripcion, downloadUri, nombreuser, "1", "1"  );
+        databaseReference.child(SOLICITUD_NODE).child(solicitud.getId()).setValue(solicitud);
+    }
+
+    public void getUser(){
+        nombreuser = databaseReference.child(USUARIO_NODE).child("Id").orderByChild("mail").equalTo(user).toString();
+    }
+
 }
